@@ -42,8 +42,24 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="pt-1 mb-4">
+                                    <div class="pt-1 mt-3 mb-4 d-flex justify-content-center">
                                         <input class="btn btn-danger btn-lg btn-block" type="submit" value="Login" name="login" id="loginButton">
+                                    </div>
+                                    <div class="align-items-center mb-5" style='content: "";flex: 1; height: 1px; background: #eee;}'>
+                                        <p class="text-center fw-bold mx-3 mb-0">OR</p>
+                                    </div>
+                                    <div class="d-flex justify-content-center mb-3">
+                                        <a href="/auth/google/redirect" type="button" class="btn btn-dark btn-floating mx-1 px-5">
+                                          <i class="fab fa-google"></i>
+                                        </a>
+                            
+                                        <button type="button" class="btn btn-dark btn-floating mx-1 px-5">
+                                          <i class="fab fa-twitter"></i>
+                                        </button>
+                            
+                                        <button type="button" class="btn btn-dark btn-floating mx-1 px-5">
+                                          <i class="fab fa-linkedin-in"></i>
+                                        </button>
                                     </div>
                                     <a class="h6 text-muted" href="{{route('login')}}">Forgot password?</a>
                                     <p class="mb-5 pb-lg-2 loginMessage">Don't have an account? <a href="{{route('register')}}" class="loginLink">Register here</a></p>

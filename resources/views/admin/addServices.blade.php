@@ -23,20 +23,19 @@
                         <!-- Data Add Part - Form -->
                         <div class="p-5 bg-white shadow-lg bg-opacity-75 rounded fw-bolder border border-2 border-danger adminServiceForm wow fadeInUp" data-wow-delay="0.1s">
                             <h3 class="text-center text-decoration-underline mb-5 text-danger">Services</h3>
-                            <form method="POST" enctype="multipart/form-data" id="addServiceForm" action="{{route('storeServices')}}">
+                            <form method="POST" enctype="multipart/form-data" id="addServiceForm" action="{{$url}}">
                                 @csrf
-                                {{$serviceDataEdit}}
                                 <div class="row mb-5">
                                     <div class=" form-group">
                                         <label for="titl" class='h4'>Service Name <span class="text-danger">*</span></label>
-                                        <input type="text" name="name" id="" placeholder="Service Name" class="form-control border border-dark border-1" value="">
+                                        <input type="text" name="name" id="" placeholder="Service Name" class="form-control border border-dark border-1" value="{{$data->sServiceName ?? ''}}">
                                         {{-- <span class="text-danger"></span> --}}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
                                     <div class="col form-group">
                                         <label for="titl" class='h4'>Description <span class="text-danger">*</span></label>
-                                        <textarea name="desc" placeholder="Description" id="" class="form-control border border-dark border-1" cols="30" rows="5"></textarea>
+                                        <textarea name="desc" placeholder="Description" id="" class="form-control border border-dark border-1" cols="30" rows="5">{{$data->sDescription ?? ''}}</textarea>
                                         {{-- <span class="text-danger"></span> --}}
                                     </div>
                                 </div>

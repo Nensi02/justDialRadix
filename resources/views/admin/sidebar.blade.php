@@ -10,7 +10,7 @@
             </a>
         </li>
         <li class="mb-1">
-            <a class="  btn text-white rounded-0 bg-opacity-75 py-3  fw-bolder w-100" href="/view/admin/addProvider.php">
+            <a class="  btn text-white rounded-0 bg-opacity-75 py-3  fw-bolder w-100" href="{{route('addProvider')}}">
                 Add Service Provider
             </a>
         </li>

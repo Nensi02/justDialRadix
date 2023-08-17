@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\AddServicesController;
+use App\Http\Controllers\ServiceProvideController;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +25,21 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'authentication')->name('authentication');
     Route::get('/logout', 'logout')->name('logout');
+    Route::get('/auth/{provider}/redirect', 'redirect')->name('redirectLogin');
+    Route::get('/auth/{provider}/callback', 'callback')->name('callbackLogin');
 });
 Route::controller(AddServicesController::class)->group(function() {
     Route::post('/addServices', 'storeServices')->name('storeServices');
-    Route::get('/admin/addServices/update/id', 'addServicesView')->name('addServices');
+    Route::post('/admin/addServices/update/{id}', 'updateServicesView')->name('updateServices');
     Route::get('/serviceList', 'viewService')->name('serviceList');
     Route::get('/serviceList/delete/{id}', 'deleteService')->name('serviceListDelete');
     Route::get('/serviceList/edit/{id}', 'editService')->name('serviceListEdit');
+});
+Route::controller(ServiceProvideController::class)->group(function() {
+    Route::get('/admin/addProvider', 'addProviderView')->name('addProvider');
+    Route::post('/addProvider', 'storeProvider')->name('storeProvider');
+    // Route::post('/admin/addServices/update/{id}', 'updateServicesView')->name('updateServices');
+    // Route::get('/serviceList', 'viewService')->name('serviceList');
+    // Route::get('/serviceList/delete/{id}', 'deleteService')->name('serviceListDelete');
+    // Route::get('/serviceList/edit/{id}', 'editService')->name('serviceListEdit');
 });

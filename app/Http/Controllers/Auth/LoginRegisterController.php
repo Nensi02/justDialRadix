@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginRegisterController extends Controller
 {
@@ -186,4 +187,45 @@ class LoginRegisterController extends Controller
             'email' => 'Please login to access the dashboard.',
             ])->onlyInput('email');
     }
+
+    /**
+     * undocumented function summary
+     *
+     * Undocumented function long description
+     *
+     * @param Type $var Description
+     * @return type
+     * @throws conditon
+     **/
+    public function redirect($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    /**
+     * undocumented function summary
+     *
+     * Undocumented function long description
+     *
+     * @param Type $var Description
+     * @return type
+     * @throws conditon
+     **/
+    public function callback($provider)
+    {
+        $providerUser = Socialite::driver($provider)->user();
+ 
+        $user = User::updateOrCreate([
+            'provider_id' => $providerUser->id,
+            'provider' => $provider,
+        ], [
+            'name' => $providerUser->name,
+            'email' => $providerUser->email,
+            'github_token' => $providerUser->token,
+        ]);
+    
+        Auth::login($user);
+    
+        return redirect()->route('welcome');
+        }
 }

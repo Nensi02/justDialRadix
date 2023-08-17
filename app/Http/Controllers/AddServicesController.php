@@ -83,8 +83,34 @@ class AddServicesController extends Controller
         } else {
             $url = url('/admin/addServices/update') . '/' . $id;
             $serviceDataEdit = compact('data', 'url');
-            echo '<br>Nensi<br>File:'.__FILE__.'<br>Line:'.__LINE__.'<br><pre>';print_r($serviceDataEdit);echo'</pre>';die();
-            // return view('admin.addServices')->with($serviceDataEdit);
+            return view('admin.addServices')->with($serviceDataEdit);
+        }
+    }
+
+    /**
+     * undocumented function summary
+     *
+     * Undocumented function long description
+     *
+     * @param Type $var Description
+     * @return type
+     * @throws conditon
+     **/
+    public function updateServicesView(Request $request, $id)
+    {
+        $data = addServices::find($id);
+        if(!is_null($data)) {
+            $validator = $request->validate([
+                'name' => 'required|string',
+                'desc'  => 'required|string'
+            ]);
+            $data->sServiceName = $request['name'];
+            $data->sDescription = $request['desc'];
+            if ($data->save()) {
+                return redirect()->route('serviceList');
+            }
+    
+            return redirect()->back()->withErrors($validator)->withInput();
         }
     }
 }
