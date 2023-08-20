@@ -10,25 +10,25 @@
             <div class="container my-5">
                 <div class="row p-5">
                     <div class="col-4 ">
-                        <div class="card text-dark rounded shadow my-5 py-5">
-                            <div class="card-body">
-                                <h4 class="display-3 fw-bold text-center text-danger">1</h4>
+                        <div class=" text-dark rounded shadow my-5 py-5">
+                            <div class="">
+                                <h4 class="display-3 fw-bold text-center text-danger">{{$totalService}}</h4>
                                 <h5 class="text-center text-danger">Total Services</h5>
                             </div>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="card text-dark rounded shadow my-5 py-5">
-                            <div class="card-body">
-                                <h4 class="display-3 fw-bold text-center text-danger">2</h4>
+                        <div class=" text-dark rounded shadow my-5 py-5">
+                            <div class="">
+                                <h4 class="display-3 fw-bold text-center text-danger">{{$totalProvider}}</h4>
                                 <h5 class="text-center text-danger">Total Service Provider</h5>
                             </div>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="card text-dark rounded shadow my-5 py-5">
-                            <div class="card-body">
-                                <h4 class="display-3 fw-bold text-center text-danger">3</h4>
+                        <div class=" text-dark rounded shadow my-5 py-5">
+                            <div class="">
+                                <h4 class="display-3 fw-bold text-center text-danger">{{$totalActiveProvider}}</h4>
                                 <h5 class="text-center text-danger">Active Service Provider</h5>
                             </div>
                         </div>
@@ -38,4 +38,10 @@
         </div>
     </div>
 </section>
+<script src="{{asset('js/main.js')}}"></script>
+@if (Session::has('success'))
+    <script>
+        alertMessage("{{ Session::get('success')}}" );
+    </script>
+@endif
 @include('layout.footer')

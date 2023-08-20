@@ -53,5 +53,11 @@
         </div>
     </div>
 </section>
+<script src="{{asset('js/main.js')}}"></script>
+@if (Session::has('success'))
+    <script>
+        alertMessage("{{ Session::get('success')}}" );
+    </script>
+@endif
 <script src="../../js/services.js"></script>
 @include('layout.footer')

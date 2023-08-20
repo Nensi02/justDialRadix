@@ -10,17 +10,17 @@
             </a>
         </li>
         <li class="mb-1">
-            <a class="  btn text-white rounded-0 bg-opacity-75 py-3  fw-bolder w-100" href="{{route('addProvider')}}">
-                Add Service Provider
-            </a>
-        </li>
-        <li class="mb-1">
             <a class="<?php echo ($_SERVER['PHP_SELF'] ==  "/justDial/view/admin/serviceList.php" ? "text-decoration-underline" : ""); ?> btn text-white rounded-0 bg-opacity-75 py-3  fw-bolder w-100" href="{{route('serviceList')}}">
                 List of Services
             </a>
         </li>
         <li class="mb-1">
-            <a class="<?php echo ($_SERVER['PHP_SELF'] == "/justDial/view/admin/providerList.php" ? "text-decoration-underline" : ""); ?> btn text-white rounded-0 bg-opacity-75 py-3  fw-bolder w-100" href="/view/admin/providerList.php">
+            <a class="  btn text-white rounded-0 bg-opacity-75 py-3  fw-bolder w-100" href="{{route('addProvider')}}">
+                Add Service Provider
+            </a>
+        </li>
+        <li class="mb-1">
+            <a class="<?php echo ($_SERVER['PHP_SELF'] == "/justDial/view/admin/providerList.php" ? "text-decoration-underline" : ""); ?> btn text-white rounded-0 bg-opacity-75 py-3  fw-bolder w-100" href="{{route('providerList')}}">
                 List of Services Provider
             </a>
         </li>

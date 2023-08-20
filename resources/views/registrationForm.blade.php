@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('layout.heade');
+@include('layout.heade')
 <section class="">
     <div class="container py-2 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -45,7 +45,7 @@
                       <div class="input-group">
                         <input type="password" value="" id="regiPass" name="password" class="form-control border  border-dark border-end-0 rounded-0" />
                         <div class="input-group-append">
-                          <span class="fa fa-eye text-center input-group-text btn border border-start-0 border-dark rounded-0 togglePassword"></span>
+                          <span class="fa fa-eye text-center py-3 px-2 border border-start-0 border-dark rounded-0 togglePasswordRegi"></span>
                         </div>
                       </div>
                       <span class="text-danger erRegiPass">
@@ -59,7 +59,7 @@
                       <div class="input-group">
                         <input type="password" value="" id="password_confirmation" name="password_confirmation" class="form-control border  border-dark border-end-0 rounded-0" />
                         <div class="input-group-append">
-                          <span class="fa fa-eye text-center input-group-text btn border border-start-0 border-dark rounded-0 togglePassword"></span>
+                          <span class="fa fa-eye text-center py-3 px-2 border border-start-0 border-dark rounded-0 togglePasswordConf"></span>
                         </div>
                       </div>
                       {{-- <span class="text-danger erRegiRePass"><?php echo $erRePassword; ?></span> --}}
@@ -81,6 +81,7 @@
       </div>
     </div>
 </section>
+<script src="{{asset('js/registration.js')}}"></script>
 <script src="../js/validation.js"></script>
 <script src="../js/register.js"></script>
 {{-- @include('layout.footer') --}}

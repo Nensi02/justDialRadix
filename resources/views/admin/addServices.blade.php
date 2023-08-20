@@ -9,8 +9,6 @@
             <div class="container">
                 <div class="row mb-3">
                     <div class="col-lg-12 lg:ps-5 pt-3 column10">
-                        <!-- Success Message -->
-                        Success
                         <div class="d-flex justify-content-between  mt-3">
                             <!-- heading -->
                             <div class="h1 py-2 mx-5">
@@ -52,7 +50,12 @@
         </div>
     </div>
 </section>
-
+<script src="{{asset('js/main.js')}}"></script>
+@if (Session::has('success'))
+    <script>
+        alertMessage("{{ Session::get('success')}}" );
+    </script>
+@endif
 <script src="../../js/validation.js"></script>
 <script src="../../js/services.js"></script>
 

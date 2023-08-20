@@ -26,7 +26,7 @@ class AddServicesController extends Controller
         $addData->sServiceName = $request['name'];
         $addData->sDescription = $request['desc'];
         if ($addData->save()) {
-            return redirect()->route('adminWelcome');
+            return redirect()->route('serviceList')->with('success', "Service addes successfully.");
         }
 
         return redirect()->back()->withErrors($validator)->withInput();

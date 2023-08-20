@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('layout.heade');
+@include('layout.heade')
 <section class="">
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -42,27 +42,27 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="pt-1 mt-3 mb-4 d-flex justify-content-center">
+                                    <div class="pt-1 mt-3 mb-2 d-flex justify-content-center">
                                         <input class="btn btn-danger btn-lg btn-block" type="submit" value="Login" name="login" id="loginButton">
                                     </div>
-                                    <div class="align-items-center mb-5" style='content: "";flex: 1; height: 1px; background: #eee;}'>
-                                        <p class="text-center fw-bold mx-3 mb-0">OR</p>
+                                    <div class="align-items-center mb-3" style='content: ""; flex: 1; height: 1px; background: #eee;}'>
                                     </div>
-                                    <div class="d-flex justify-content-center mb-3">
-                                        <a href="/auth/google/redirect" type="button" class="btn btn-dark btn-floating mx-1 px-5">
-                                          <i class="fab fa-google"></i>
-                                        </a>
-                            
-                                        <button type="button" class="btn btn-dark btn-floating mx-1 px-5">
-                                          <i class="fab fa-twitter"></i>
-                                        </button>
-                            
-                                        <button type="button" class="btn btn-dark btn-floating mx-1 px-5">
-                                          <i class="fab fa-linkedin-in"></i>
-                                        </button>
+                                    <div class="">
+                                        <div class="d-flex justify-content-center mb-3">
+                                            <a href="/auth/google/redirect" type="button" class="btn btn-dark btn-floating mx-1 px-5">
+                                                <i class="fab fa-google px-5"></i>
+                                            </a>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <a href="/auth/github/redirect" type="button" class="btn btn-dark btn-floating mx-1 px-5">
+                                                <i class="fab fa-github px-5"></i>
+                                            </a>
+                                        </div>
+                                        {{-- <a href="/auth/facebook/redirect" type="button" class="btn btn-dark btn-floating mx-1 px-5">
+                                            <i class="fab fa-facebook"></i>
+                                        </a> --}}
                                     </div>
-                                    <a class="h6 text-muted" href="{{route('login')}}">Forgot password?</a>
-                                    <p class="mb-5 pb-lg-2 loginMessage">Don't have an account? <a href="{{route('register')}}" class="loginLink">Register here</a></p>
+                                    <p class="mb-5 pb-lg-2 loginMessage mt-4 text-center">Don't have an account? <a href="{{route('register')}}" class="loginLink">Register here</a></p>
                                 </form>
                             </div>
                         </div>
@@ -72,5 +72,12 @@
         </div>
     </div>
 </section>
+<script src="{{asset('js/login.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
+@if (Session::has('success'))
+    <script>
+        alertMessage("{{ Session::get('success')}}" );
+    </script>
+@endif
 <script src="../js/validation.js"></script>
 {{-- @include('layout.footer'); --}}

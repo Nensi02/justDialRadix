@@ -3,11 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\UserVerify;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+use App\Models\addServices;
+use App\Models\ServiceProvide;
+use Illuminate\Support\Str;
+use Mail;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class LoginRegisterController extends Controller
 {
@@ -49,17 +56,32 @@ class LoginRegisterController extends Controller
             'password' => 'required|min:2|confirmed'
         ]);
 
-        User::create([
+        $createUser = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
+        $token = Str::random(64);
+        UserVerify::create([
+            'user_id' => $createUser->id, 
+            'token' => $token
+        ]);
+
+        Mail::send('emails.emailVerification', ['token' => $token], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Email Verification Mail');
+        });
 
         $credential = $request->only('email', 'password');
         Auth::attempt($credential);
         $request->session()->regenerate();
-        return redirect()->route('welcome')
-        ->withSuccess('You have successfully registered & logged in!');
+        if ($request->email == 'admin@gmail.com') {
+            return redirect()->route('adminWelcome')
+            ->withSuccess('You have successfully registered & logged in!');
+        } else {
+            return redirect()->route('welcome')
+            ->withSuccess('You have successfully registered & logged in!');
+        }
     }
 
     /**
@@ -94,7 +116,10 @@ class LoginRegisterController extends Controller
     public function adminWelcome()
     {
         if(Auth::check()) {
-            return view('admin.index');
+            $totalService = (addServices::get('nId')) ? count(addServices::get('nId')) : 0;
+            $totalProvider = (ServiceProvide::get('nId')) ? count(ServiceProvide::get('nId')) : 0;
+            $totalActiveProvider = (ServiceProvide::where('bStatus', 1)->get('nId')) ? count(ServiceProvide::where('bStatus', 1)->get('nId')) : 0;
+            return view('admin.index')->with(compact('totalService', 'totalProvider', 'totalActiveProvider'));
         }
 
         return redirect()->route('login')->withErrors([
@@ -164,7 +189,7 @@ class LoginRegisterController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login')
-            ->withSuccess('You have logged out successfully!');;
+            ->withSuccess('You have logged out successfully!');
     }
 
     /**
@@ -214,7 +239,7 @@ class LoginRegisterController extends Controller
     public function callback($provider)
     {
         $providerUser = Socialite::driver($provider)->user();
- 
+
         $user = User::updateOrCreate([
             'provider_id' => $providerUser->id,
             'provider' => $provider,
@@ -223,9 +248,29 @@ class LoginRegisterController extends Controller
             'email' => $providerUser->email,
             'github_token' => $providerUser->token,
         ]);
-    
         Auth::login($user);
-    
-        return redirect()->route('welcome');
+
+        return redirect()->route('welcome')->with('success', 'You have successfully logged in!');
+    }
+
+    public function verifyAccount($token): RedirectResponse
+    {
+        $verifyUser = UserVerify::where('token', $token)->first();
+  
+        $message = 'Sorry your email cannot be identified.';
+  
+        if(!is_null($verifyUser) ){
+            $user = $verifyUser->user;
+              
+            if(!$user->is_email_verified) {
+                $verifyUser->user->is_email_verified = 1;
+                $verifyUser->user->save();
+                $message = "Your e-mail is verified. You can now login.";
+            } else {
+                $message = "Your e-mail is already verified. You can now login.";
+            }
         }
+  
+      return redirect()->route('login')->with('success', $message);
+    }
 }
