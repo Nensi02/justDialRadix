@@ -241,12 +241,14 @@ class LoginRegisterController extends Controller
         $providerUser = Socialite::driver($provider)->user();
 
         $user = User::updateOrCreate([
-            'provider_id' => $providerUser->id,
+            'provider_id' => $providerUser['id'],
             'provider' => $provider,
         ], [
             'name' => $providerUser->name,
             'email' => $providerUser->email,
             'github_token' => $providerUser->token,
+            'provider_id' => $providerUser['id'],
+            'provider' => $provider
         ]);
         Auth::login($user);
 

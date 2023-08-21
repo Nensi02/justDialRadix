@@ -107,7 +107,7 @@ class AddServicesController extends Controller
             $data->sServiceName = $request['name'];
             $data->sDescription = $request['desc'];
             if ($data->save()) {
-                return redirect()->route('serviceList');
+                return redirect()->route('serviceList')->with('success', 'Service Updated successfully.');
             }
     
             return redirect()->back()->withErrors($validator)->withInput();
