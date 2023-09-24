@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AddServiceAPIController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,4 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/store', [AddServiceAPIController::class, 'store']);
+Route::get('service', [AddServiceAPIController::class, 'getServices']);
+Route::post('addService', [AddServiceAPIController::class, 'storeServices']);
+Route::put('editService/edit/{id}', [AddServiceAPIController::class, 'updateServices']);
+Route::delete('service/delete/{id}', [AddServiceAPIController::class, 'deleteServices']);
